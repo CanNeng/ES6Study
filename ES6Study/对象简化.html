@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>对象简化</title>
+	</head>
+	<body>
+		<script>
+			//ES6 允许在大括号里面,直接写入变量和函数,作为对象的属性和方法
+			let name = '德丽莎';
+			let age = 12;
+			let hellow = function () {
+				console.log('德丽莎世界第一可爱');
+			};
+
+			//当属性名称和传入的属性名称一致时,可以直接传入
+			let theresa = {
+				name,
+				age,
+				hellow,
+			};
+
+			console.log(theresa);
+
+			//方法的简写
+			let ziyuan = {
+				name,
+				subname: '紫苑增幅',
+				attack() {
+					console.log('近战!拔刀!小心头顶!');
+				},
+			};
+
+			console.log(ziyuan);
+		</script>
+	</body>
+</html>

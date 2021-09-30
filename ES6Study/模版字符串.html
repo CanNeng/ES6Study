@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>模版字符串</title>
+	</head>
+	<body>
+		<script>
+			//声明方式为反引号
+			const str = `声明方式为反引号`;
+
+			//可以包括换行符
+			const theresas = `<ul>
+                                <li>神恩</li>
+                                <li>紫苑</li>
+                                <li>观星</li>
+                            </ul>`;
+
+			//可以替换变量
+			const name = '德丽莎';
+			const content = `${name}世界第一可爱!`;
+			console.log(content);
+		</script>
+	</body>
+</html>
