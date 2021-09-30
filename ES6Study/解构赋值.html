@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			//ES6 允许按照一定的从数组或者对象中提取值，对变量进行赋值
+
+			//1.数组的解构
+			const theresas = ['神恩', '观星', '紫苑', '月下', '誓约', '火傻'];
+			let [shenen, guanxing, ziyuan, yuexia, siyue, teriteri] = theresas; //定义了6个变量
+			console.log('-----数组的解构-----');
+			console.log(shenen);
+			console.log(guanxing);
+			console.log(ziyuan);
+			console.log(yuexia);
+			console.log(siyue);
+			console.log(teriteri);
+			console.log();
+
+			//2.对象的解构
+			const myWife = {
+				myWifeName: 'theresa',
+				myWifeAge: 12,
+				myWifeArm: '犹大',
+				hellowMyWife: () => {
+					console.log('舰长已经起床了吗?');
+				},
+				sleepMyWife: () => {
+					console.log('要和德丽莎一起睡午觉吗?');
+				},
+			};
+
+			let { myWifeName, myWifeAge, myWifeArm, hellowMyWife } = myWife; //定义了4个对象属性,作用域为windows
+			console.log(myWifeName);
+			console.log(myWifeAge);
+			console.log(myWifeArm);
+			hellowMyWife();
+
+			let { sleepMyWife } = myWife; //属性名对应时才能解构对应的属性,这里在window作用域中声明了sleepMyWife方法
+			sleepMyWife();
+			sleepMyWife();
+			sleepMyWife();
+			sleepMyWife();
+			sleepMyWife();
+		</script>
+	</body>
+</html>
