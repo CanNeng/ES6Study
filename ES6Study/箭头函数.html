@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>箭头函数</title>
+	</head>
+	<body>
+		<script>
+			//简单的定义
+			let fn = (a, b) => {
+				return a + b;
+			};
+			console.log(fn(1, 2));
+
+			//-----------箭头函数的this是静态的，this 始终指向箭头函数声明时所在作用域下 this 的值-----------
+			let getName = function () {
+				console.log(this.name); //this 默认情况下指向windo，如果使用方法名.call(arg)时, this 指向arg
+			};
+			let getNameArrow = () => {
+				console.log(this.name); //this 始终指向window
+			};
+
+			window.name = 'theresa';
+			let teriri = {
+				name: 'teriri',
+			};
+			getName.call(teriri);
+			getNameArrow.call(teriri);
+
+			//-----------不能用作构造函数-----------
+			let Role = function (name, age) {
+				//通常情况下的构造函数
+				this.name = name;
+				this.age = age;
+			};
+			let RoleArrow = (name, age) => {
+				//使用箭头函数的构造函数
+				this.name = name;
+				this.age = age;
+			};
+
+			let mei = new Role('Raiden Mei', 17);
+			console.log(mei); //Role {name: "Raiden Mei", age: 17}
+
+			//let seele = new RoleArrow('Seele Vollerei', 14);
+			//console.log(seele);       //箭头函数.html:47 Uncaught TypeError: RoleArrow is not a constructor
+
+			//-----------方法内部无法使用arguments-----------
+			let max = function () {
+				console.log(arguments);
+				var max = arguments[0];
+				for (val of arguments) {
+					if (val > max) max = val;
+				}
+				console.log('max=' + max);
+			};
+
+			let maxArrow = () => {
+				console.log(arguments);
+				var max = arguments[0];
+				for (val of arguments) {
+					if (val > max) max = val;
+				}
+				console.log('max=' + max);
+			};
+
+			max(11, 4, 5, 14, 19, 19, 8, 10); //max=19,Arguments(8) [11, 4, 5, 14, 19, 19, 8, 10, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+			maxArrow(11, 4, 5, 14, 19, 19, 8, 10); //Uncaught ReferenceError: arguments is not defined
+
+			//-----------箭头函数的简写-----------
+			//let fnSimple00 = (m) => { return m * m; };
+			//let fnSimple01 = m => { return m * m; }; //当形参只有一个时,可以不写括号
+			//let fnSimple02 = m => m * m; //当方法体里面只有一条语句时,可以不写大括号,也不能写return
+		</script>
+	</body>
+</html>
