@@ -7,6 +7,10 @@
 		<title>箭头函数</title>
 	</head>
 	<body>
+		<div
+			id="div1"
+			style="width: 100px; height: 100px; background-color: cadetblue"
+		></div>
 		<script>
 			//简单的定义
 			let fn = (a, b) => {
@@ -16,7 +20,7 @@
 
 			//-----------箭头函数的this是静态的，this 始终指向箭头函数声明时所在作用域下 this 的值-----------
 			let getName = function () {
-				console.log(this.name); //this 默认情况下指向windo，如果使用方法名.call(arg)时, this 指向arg
+				console.log(this.name); //this 指向声明时所在作用域下的this，如果使用方法名.call(arg)时, this 指向arg
 			};
 			let getNameArrow = () => {
 				console.log(this.name); //this 始终指向window
@@ -54,25 +58,68 @@
 				for (val of arguments) {
 					if (val > max) max = val;
 				}
-				console.log('max=' + max);
+				console.log(`max=${max}`);
 			};
 
-			let maxArrow = () => {
-				console.log(arguments);
-				var max = arguments[0];
-				for (val of arguments) {
-					if (val > max) max = val;
-				}
-				console.log('max=' + max);
-			};
+			// let maxArrow = () => {
+			// 	console.log(arguments);
+			// 	var max = arguments[0];
+			// 	for (val of arguments) {
+			// 		if (val > max) max = val;
+			// 	}
+			// 	console.log('max=' + max);
+			// };
 
 			max(11, 4, 5, 14, 19, 19, 8, 10); //max=19,Arguments(8) [11, 4, 5, 14, 19, 19, 8, 10, callee: ƒ, Symbol(Symbol.iterator): ƒ]
-			maxArrow(11, 4, 5, 14, 19, 19, 8, 10); //Uncaught ReferenceError: arguments is not defined
+			//maxArrow(11, 4, 5, 14, 19, 19, 8, 10); //Uncaught ReferenceError: arguments is not defined
 
 			//-----------箭头函数的简写-----------
 			//let fnSimple00 = (m) => { return m * m; };
 			//let fnSimple01 = m => { return m * m; }; //当形参只有一个时,可以不写括号
 			//let fnSimple02 = m => m * m; //当方法体里面只有一条语句时,可以不写大括号,也不能写return
+
+			//-----------箭头函数的应用场景-----------
+			let div1 = document.getElementById('div1');
+
+			// div1.addEventListener('click', function () {
+			// 	setTimeout(function () {
+			// 		//箭头函数.html:85 Uncaught TypeError: Cannot set property 'background' of undefined
+			// 		//this指向当前function的作用域下,并不是指向div
+			// 		this.style.background = 'yellow';
+			// 	}, 1000);
+			// });
+
+			div1.addEventListener('click', function () {
+				setTimeout(() => {
+					// this 指向函数声明时所在的作用域, this 这里指向了外层
+					this.style.background = 'yellow';
+				}, 1000);
+			});
+
+			const ARR = [11, 4, 5, 14, 19, 19, 8, 10];
+			let result = ARR.filter((item) => item % 2 === 0);
+			console.log(result);
+
+			//箭头函数适合用于与 this 无关的回调, 定时器, 数组的方法回调
+			//箭头函数不适合与 this 有关的回调, 事件回调, 对象的方法
+			window.foodName = '苦瓜汁';
+			window.foodPrice = 15;
+			let myWife = {
+				nick: '德丽傻',
+				specialty: '土豆泥鸡翅',
+				cook() {
+					//this 在这里指向了myWife这个对象
+					console.log(`${this.nick}开始制作料理${this.specialty}`); //德丽傻开始制作料理土豆泥鸡翅
+				},
+				sell: () => {
+					//this 在这里指向了myWife所在的作用域名
+					console.log(
+						`${this.nick}开始销售料理${this.foodName}每份${this.foodPrice}吼姆币` //undefined开始销售料理苦瓜汁每份15吼姆币
+					);
+				},
+			};
+			myWife.cook();
+			myWife.sell();
 		</script>
 	</body>
 </html>
