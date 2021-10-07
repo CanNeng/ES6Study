@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>变量提升</title>
+	</head>
+	<body>
+		<script>
+			//引擎会在解释JavaScript代码之前首先对齐进行编译，编译过程中的一部分工作就是找到所有的声明，并用合适的作用域将他们关联起来，这也正是词法作用域的核心内容。
+			//简单说就是在js代码执行前引擎会先进行预编译，预编译期间会将变量声明与函数声明提升至其对应作用域的最顶端
+			//https://blog.csdn.net/kontar123/article/details/83508740
+
+			var a = 99; // 全局变量a
+			f(); // f是函数，虽然定义在调用的后面，但是函数声明会提升到作用域的顶部。
+			console.log(a); // a=>99,  此时是全局变量的a
+			function f() {
+				console.log(a); // 当前的a变量是下面变量a声明提升后，默认值undefined
+				var a = 10;
+				console.log(a); // a => 10
+			}
+
+			// 输出结果：
+			//undefined;
+			//10;
+			//99;
+
+			//js预编译后的结果
+			var a;
+			var f = function () {
+				var a; //局部变量提升到当前块的顶部
+				console.log(a); //打印undefined
+				a = 10;
+				console.log(a); //打印10
+			};
+			a = 99;
+			f();
+			console.log(a); //打印全局变量99
+		</script>
+	</body>
+</html>

@@ -14,9 +14,13 @@
 			//let不允许重复定义
 			//let itemLet='let_item02';
 
-			//变量提升指变量声明前也可以使用这个变量
+			//变量提升指js代码在预编译时,会在当前块最顶端声明一个值为undefined的变量
 			console.log(itemVar);
 			var itemVar = 'var_item';
+			//预编译后的代码
+			//var itemVar;
+			//console.log(itemVar);
+			//itemVar = 'var_item';
 		</script>
 	</body>
 </html>

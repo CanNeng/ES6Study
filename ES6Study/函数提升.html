@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>函数提升</title>
+	</head>
+	<body>
+		<script>
+			//一个栗子
+			var a = 1;
+			function foo() {
+				a = 10;
+				console.log(a);
+				return;
+				function a() {}
+			}
+			foo();
+			console.log(a);
+
+			//输出结果如下
+			//10
+			//1
+
+			//上面的代码块经过预编译后可以看做如下形式（只分析foo方法内部情况）：
+			var a = 1; // 定义一个全局变量 a
+			function foo() {
+				// 首先提升函数声明function a () {}到函数作用域顶端， 然后function a () {}等同于 var a =  function() {};最终形式如下
+				var a = function () {}; // 定义局部变量 a 并赋值。
+				a = 10; // 修改局部变量 a 的值，并不会影响全局变量 a
+				console.log(a); // 打印局部变量 a 的值：10
+				return;
+			}
+			foo();
+			console.log(a); // 打印全局变量 a 的值：1
+
+			//函数提升只会提升函数声明，而不会提升函数表达式。
+			console.log(foo1); // [Function: foo1]
+			foo1(); // foo1
+			console.log(foo2); // undefined
+			foo2(); // TypeError: foo2 is not a function
+			function foo1() {
+				console.log('foo1');
+			}
+			var foo2 = function () {
+				console.log('foo2');
+			};
+		</script>
+	</body>
+</html>
