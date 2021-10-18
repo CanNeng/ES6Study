@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>函数参数默认值</title>
+	</head>
+	<body>
+		<script>
+			//ES6允许给函数参数赋初始值
+			function fn(a, b, c = 100) {
+				return a + b + c;
+			}
+			console.log(fn(1, 2));
+
+			//与解构函数结合
+			function fn2({ name = '神恩颂歌', arms = '11th原典', attack = 395, sp }) {
+				console.log(`装甲=${name},武器=${arms},攻击力=${attack},sp=${sp}`);
+			}
+			fn2({}); //注:如果使用默认值时,要传入{},否则会报错 Uncaught TypeError: Cannot read property 'name' of undefined
+			fn2({ name: '樱桃炸弹', arms: '睡美人', attack: 283 });
+		</script>
+	</body>
+</html>
