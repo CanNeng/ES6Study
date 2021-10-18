@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>扩展运算符</title>
+	</head>
+	<body>
+		<script>
+			const jixie = ['紫苑'];
+			const shengwu = ['神恩', '观星', '月下'];
+			const yineng = ['誓约', '樱火'];
+			const wife = {
+				name: '德丽莎',
+				age: 12,
+				sex: 'female',
+				title: '学园长',
+			};
+
+			//扩展运算符可以展开一个数组
+			console.log(...shengwu);
+			//相当于这样
+			console.log('神恩', '观星', '月下');
+
+			//用法:合并数组
+			const theresas = [...jixie, ...shengwu, ...yineng];
+			console.log(theresas);
+
+			//拷贝数组(浅拷贝)
+			const mywifes = [...theresas];
+			console.log(mywifes);
+
+			//伪数组转换为真正的数组
+			function fn() {
+				console.log(arguments);
+				let arr = [...arguments];
+				console.log(arr);
+			}
+			fn('糖藕童子', '星穹圣诗', '兰夜行歌');
+		</script>
+	</body>
+</html>
