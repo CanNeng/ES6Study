@@ -55,6 +55,30 @@
 						throw new ColorException("Can't find this color");
 				}
 			}
+
+			//Symbol的内置属性
+
+			//Symbol.hasInstance属性会在调用instanceof检测继承时被调用
+			class Wife {
+				static [Symbol.hasInstance](param) {
+					console.log(`${this.name}的instanceof方法被调用`);
+					return param?.name === '德丽莎';
+				}
+				//构造函数
+				constructor(name) {
+					this.name = name;
+				}
+			}
+			let theresa = new Wife('德丽莎');
+			console.log(theresa instanceof Wife ? '这是我老婆' : '这不是我老婆');
+
+			//Symbol.isConcatSpreadable可控制属性是否可以展开
+			const myWifes1 = ['神恩', '观星', '紫苑'];
+			const myWifes2 = ['月下', '誓约', '火傻'];
+			myWifes2[Symbol.isConcatSpreadable] = true; //默认,可以展开
+			console.log(myWifes1.concat(myWifes2));
+			myWifes2[Symbol.isConcatSpreadable] = false; //不可展开
+			console.log(myWifes1.concat(myWifes2));
 		</script>
 	</body>
 </html>
