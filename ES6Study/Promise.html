@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Promise用法</title>
+	</head>
+	<body>
+		<script>
+			//Promise时Es6中引入的异步编程的新的解决方案,可以解决回调地狱的问题
+
+			let p = new Promise((resolve, reject) => {
+				setTimeout(() => {
+					resolve('德丽莎世界第一可爱!'); //调用resolve方法,返回成功结果.该方法调用后,后面的代码将不会再继续执行
+					reject('铃兰才是世界第一可爱!'); //调用reject方法,返回失败结果
+				}, 2000);
+			});
+
+			let p2 = new Promise((resolve, reject) => {
+				resolve('沙月月世界第一可爱!');
+			});
+
+			let p3 = new Promise((resolve, reject) => {
+				//resolve('荧妹世界第一可爱');
+				throw '荧妹世界第一可爱';
+			});
+
+			const result = p
+				.then(
+					(value) => {
+						console.log(value); //成功执行时,调用该方法
+						return p2;
+					},
+					(reason) => {
+						console.error(reason); //执行失败时,调用该方法
+					}
+				)
+				.then((value) => {
+					console.log(value);
+				})
+				.catch((reason) => {
+					console.error(reason);
+				});
+
+			console.log(result); //then方法返回的结果是一个Promise对象,可以继续使用then方法链式编程
+
+			//Promise捕获异常
+			p3.then((value) => {
+				console.log(value);
+			}).catch((reason) => {
+				console.error(reason);
+			});
+		</script>
+	</body>
+</html>
